@@ -8,9 +8,7 @@
         table {
             border-collapse: collapse;
             width: 400px;
-            /* Fixed table width */
             table-layout: fixed;
-            /* Important: forces fixed column width */
         }
 
         th,
@@ -19,11 +17,8 @@
             padding: 8px;
             text-align: left;
             overflow: hidden;
-            /* Hide overflow text */
             text-overflow: ellipsis;
-            /* Add "..." when text too long */
             white-space: nowrap;
-            /* Prevent line break */
         }
     </style>
 </head>
@@ -56,27 +51,35 @@
        <input type="button" value="Add" onclick="add()">
        <input type="button" value="Reset input" onclick="resetInput()">
        <input type="button" value="Reset table" onclick="resetTable()">
-    <table>
+    </p>
+    <table id="nameList">
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
         </tr>
     </table>
 
-    <table>
-        
-    </table>
     <script>
-        function add(){
-            firstname = document.getElementById("firstName").value;
-            lastname = document.getElementById("lastName").value;
+        function add() {
+            const firstname = document.getElementById("firstName").value;
+            const lastname = document.getElementById("lastName").value;
+            if (firstname.trim() === "" && lastname.trim() === "") return;
+            const table = document.getElementById("nameList");
+            const row = table.insertRow(-1);
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = firstname;
+            cell2.textContent = lastname;
         }
-        function resetInput(){
+        function resetInput() {
             document.getElementById("firstName").value = "";
             document.getElementById("lastName").value = "";
         }
-        function resetTable(){
-            table = document.getElementById("nameList");
+        function resetTable() {
+            const table = document.getElementById("nameList");
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
         }
     </script>
     
